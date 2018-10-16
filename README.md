@@ -1,30 +1,4 @@
-# Plating API Server
-
-## 새로운 API 서버가 필요해졌다.
-
-문제점을 짚자면 
-
-- 혼자서 서버를 다 만들던 개발자의 퇴사
-- 웹버전 플레이팅을 개발하면서 보안의 강화가 필요해짐 
-- 그러나 open api, admin api의 cors설정이 불분명하고 (get, post, put, update, .. and option?)
-- 잘 못 설정을 건드리면 너무 많이 물려있어서 내부 운영툴이 터진다.
-- 또한 api response값이 
-
-새로운 API_V3 서버는 다음과 같은 룰을 따른다.
-
-- 기존 php로 짜여진 api.plating.co.kr을 내리고 이 이름을 가진다.
-- apiv2.plating.co.kr은 최대한 건드리지 않으며 proxy를 통해 api.plating.co.kr에 통합한다.
-  - api.plating.co.kr/v2 (현재는 apialpha.plating.co.kr/v2) 로 기존 v2에 접근할 수 있다.
-- 새로운 api는 도메인별로 버전을 갖는다. 업데이트의 용이함을 위해서다.
-  - domain / version / restapi 
-  - ex) v2/user/:id => user/v2/users/:id
-  - [riot games api](https://developer.riotgames.com/api-methods/)를 참고
-- api/ 폴더구조가 곧 endpoint 구조이다.
-  - 이는 이해가 쉽다. 대신 유연함이 떨어진다. 새로운 개발자, 주니어들을 위해 이해가 쉬운 것을 택했다.
-  - 자신이 백년만년 회사에 다닐 것이 아니라면 자신만 알 수 있는 구조는 그만한 document가 필요하고 충분한 인수인계가 필요하다.
-  - 필요에 따라 폴더구조를 변경하길 바란다. 
-- v2의 api에 validate나 새로운 기능들의 추가가 필요할 경우 최대한 v2를 활용하기위해서 v3는 v2의 route로 redirect 할 수도 있다.
-  - ex) signup참고.
+# NMC API Server
 
 ## 개발환경 설정
 
@@ -112,8 +86,6 @@ model을 controller에 직접 사용하지 않고 service의 개념으로 한번
 이처럼 느슨한 구조는 추후에 다음 개발자가 추상화 레이어를 만들고자 할 때도 무리없이 추가할 수 있을것이다.
 
 #### sequelize 
-
-알다시피 우리의 디비는 column값이 중구난방이며 camelCase이기도 하고 snake_case이기도 하고 id대신 idx를 쓰는 부분은 오타와 혼란을 주기 쉽다.
 따라서 sequelize선언 부분에서 idx는 모두 id로, snake_case는 모두 camelCase로 alias하도록 한다. 
 
 #### index.js
@@ -135,15 +107,6 @@ model define과 db객체의 선언을 분리하는 것이 유리할 것이다.
 
 또한 model간의 관계도 index.js에 적는다. 
 
-## Test
-
-mocha로 테스트를 작성해 보았지만 이를 충분히 사용하고 있지는 않다. **src/tests/**, **.env.test**, **.sequelizerc**, **config/db.js**를 참고해보면 좋다. 
-test파일은 api에 각 endpoint에 위치해도 좋다.
-
 ## logging 
 
-매우 빠른, pino를 사용한다. 
-
-## TODO
-
-- 도메인에 대한 고민.
+pino를 사용한다. 
