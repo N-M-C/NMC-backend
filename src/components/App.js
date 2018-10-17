@@ -29,23 +29,7 @@ class App extends Component {
     this.recognition.interimResults = false;
     this.recognition.maxAlternatives = 1;
 
-    //2
-    this.recognition.onresult = event => {
-      const text = event.results[0][0].transcript;
-      console.log('mode) transcript', text);
-      this.setState({ text });
-    };
-
-    this.recognition.onspeechend = () => {
-      console.log('mode) stopped');
-      this.setState({ show: true });
-    };
-
-    this.recognition.onnomatch = event => {
-      console.log('mode) no match');
-      this.setState({ text: "Sorry, can't hear" });
-    };
-
+    // on Start
     this.recognition.onstart = () => {
       console.log('mode) onstart')
       this.setState({
@@ -53,6 +37,20 @@ class App extends Component {
       });
     };
 
+    // 텍스트
+    this.recognition.onresult = event => {
+      const text = event.results[0][0].transcript;
+      console.log('mode) transcript', text);
+      this.setState({ text });
+    };
+
+    // stopped
+    this.recognition.onspeechend = () => {
+      console.log('mode) stopped');
+      this.setState({ show: true });
+    };
+
+    // end
     this.recognition.onend = () => {
       console.log('mode) end');
       this.setState({
@@ -61,6 +59,13 @@ class App extends Component {
       this.end();
     };
 
+    // no match
+    this.recognition.onnomatch = event => {
+      console.log('mode) no match');
+      this.setState({ text: "인식하지 못하였습니다.\n다시 한번 시도해주세요." });
+    };
+
+    // error
     this.recognition.onerror = event => {
       console.log('error', event);
       this.setState({
