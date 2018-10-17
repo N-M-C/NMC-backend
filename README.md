@@ -3,7 +3,7 @@
 Web Speech API Example를 사용하였음.
 https://github.com/fresh-web/web-speech
 
-## 설치
+### 설치
 ```js
 npm install
 ```
@@ -12,7 +12,7 @@ npm install
 yarn install
 ```
 
-## 실행
+### 실행
 
 ```js
 npm run start
