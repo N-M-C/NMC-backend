@@ -4,7 +4,6 @@ const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
-
 const router = require('./api/router');
 
 const app = express();

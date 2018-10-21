@@ -1,6 +1,6 @@
 const server = require('./src/server');
 const logger = require('./src/utils/logger');
-
+const constant = require('./src/const/constant');
 require('./config/env');
 // port는 직접 넣은 env에서 먼저 찾고, config를 찾은후 default를 세팅한다.
 const port = process.env.PORT || 3000;
@@ -24,7 +24,7 @@ async function start() {
 // start server
 start()
   .then(() => {
-    logger.info(`hovi api 서버가 ${port} 포트에서 실행중입니다.`);
+    logger.info(`${constant.name} api 서버가 ${port} 포트에서 실행중입니다.`);
   })
   .catch(error => {
     logger.error('서버 실행에 실패하였습니다', error);
