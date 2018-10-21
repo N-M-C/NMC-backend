@@ -1,20 +1,22 @@
+import constant from '../../const/constant';
+
 async function getAnswer(req, res) {
   const { question } = req.query || {};
   const { questionAnalyzed } = {};
-
+  
+  // 일단 dummy 데이터
   const answer = {
     question: question,
-    category: '시설',
-    response: '서울특별시 강남구 일원로 81 (06351) 삼성서울병원 입니다.'
+    category: constant.facility,
+    response: constant.hospitalInfo.address,
   }
-
   // --- referenced from ETRI --
-  var openApiURL = 'http://aiopen.etri.re.kr:8000/WiseNLU';
+  const openApiURL = process.env.OPEN_API_URL;
   // access 키 받으면 넣으면 됨
-  var access_key = 'YOUR_ACCESS_KEY';
-  var analysisCode = 'ANALYSIS_CODE';
+  const access_key = process.env.ACCESS_KEY;
+  const analysisCode = process.env.ANALYSIS_CODE;
   
-  var requestJson = {
+  let requestJson = {
       'access_key': access_key,
       'argument': {
           'text': question,
@@ -22,12 +24,13 @@ async function getAnswer(req, res) {
       }
   };
   
-  var request = require('request');
-  var options = {
+  let request = require('request');
+  let options = {
       url: openApiURL,
       body: JSON.stringify(requestJson),
       headers: {'Content-Type':'application/json; charset=UTF-8'}
   };
+  
   request.post(options, function (error, response, body) {
       console.log('responseCode = ' + response.statusCode);
       console.log('responseBody = ' + body);
@@ -45,7 +48,7 @@ async function getAnswer(req, res) {
   }
 }
 
-
+// 예시
 async function getAnswerByObject(req, res) {
   const { question } = req.query || {};
   const answer = {
