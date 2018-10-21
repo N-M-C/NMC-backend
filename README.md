@@ -1,4 +1,4 @@
-# HOVI API Server :hospital"
+# HOVI API Server :hospital:
 
 ## HOVI의 api 서버입니다.
 
