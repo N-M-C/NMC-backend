@@ -19,6 +19,12 @@
 
 - yarn add "패키지명" (패키지 추가시)
 
+## HOW TO USE
+question을 query string으로 받아 추후 작업을 처리한다.
+
+- REQUEST: http://localhost:3000/hovi/answer?question=dd
+- RESPONSE: success: your question is dd
+
 ## STRUCTURE
 
 1. env
@@ -36,4 +42,4 @@
 
 4. const
 - 자주 쓰이는 상수들을 모아 놓음
-- ex) name: hovi
+- ex) name: hovic
