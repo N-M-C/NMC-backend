@@ -28,7 +28,7 @@ question을 query string으로 받아 추후 작업을 처리한다.
 - REQUEST: 
 http://localhost:3000/hovi/answerByObject?question=dd
 - RESPONSE: 
-```json
+```js
 {
     category: 'test category',
     question: question,
