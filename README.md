@@ -1,5 +1,7 @@
 # HOVI API Server :hospital:
-
+```
+open ai api를 활용해 질문의 구문 분석을 통해 알맞은 대답을 응답해주는 서버를 구축한다.
+```
 ## HOVI의 api 서버입니다.
 
 사용한 라이브러리
