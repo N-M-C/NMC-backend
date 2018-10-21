@@ -1,7 +1,8 @@
+require('./config/env');
 const server = require('./src/server');
 const logger = require('./src/utils/logger');
 const constant = require('./src/const/constant');
-require('./config/env');
+
 // port는 직접 넣은 env에서 먼저 찾고, config를 찾은후 default를 세팅한다.
 const port = process.env.PORT || 3000;
 server.set('port', port);

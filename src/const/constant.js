@@ -12,7 +12,6 @@ const constant = {
     hospitalInfo:{
         address: '서울특별시 강남구 일원로 81 (06351) 삼성서울병원'
     }
-
 }
 
 module.exports = constant;

@@ -13,6 +13,7 @@ open ai api를 활용해 질문의 구문 분석을 통해 알맞은 대답을 �
 - pino (빠른 로깅)
 - body-parser
 - nodemon (계속 서버를 띄우기 위함)
+- request (http 요청)
 
 ## HOW TO START
 - npm install -g yarn (yarn 설치)
