@@ -55,3 +55,23 @@ http://localhost:3000/hovi/answerByObject?question=dd
 4. const
 - 자주 쓰이는 상수들을 모아 놓음
 - ex) name: HOVI
+
+## CATEGORY OF QUESTION
+
+- 시설
+  keyword: '고장'
+
+- 위치
+  keyword: '어디'
+
+- 시간
+  keyword: '언제'
+
+- 요금
+  keyword: '얼마'
+
+- 증상
+
+- 일상
+
+- 기타

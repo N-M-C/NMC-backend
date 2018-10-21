@@ -3,9 +3,9 @@ async function getAnswer(req, res) {
   const { questionAnalyzed } = {};
 
   const answer = {
-    category: 'cate',
     question: question,
-    response: 'res'
+    category: '시설',
+    response: '서울특별시 강남구 일원로 81 (06351) 삼성서울병원 입니다.'
   }
 
   // --- referenced from ETRI --
@@ -32,6 +32,10 @@ async function getAnswer(req, res) {
       console.log('responseCode = ' + response.statusCode);
       console.log('responseBody = ' + body);
   });
+
+  // category 추출 (특정 단어 포함 시)
+
+  // category 에 따른 문장 분석, 
 
   try {
     //res.status(200).send(`success: your question is ${question}`);
