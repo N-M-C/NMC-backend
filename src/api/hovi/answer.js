@@ -1,5 +1,14 @@
 import constant from '../../const/constant';
 
+const request = require('request');
+
+// --- referenced from ETRI --
+const openApiURL = process.env.OPEN_API_URL;
+
+// access 키 받으면 넣으면 됨
+const access_key = process.env.ACCESS_KEY;
+const analysisCode = process.env.ANALYSIS_CODE;
+
 async function getAnswer(req, res) {
   const { question } = req.query || {};
   const { questionAnalyzed } = {};
@@ -10,11 +19,6 @@ async function getAnswer(req, res) {
     category: constant.facility,
     response: constant.hospitalInfo.address,
   }
-  // --- referenced from ETRI --
-  const openApiURL = process.env.OPEN_API_URL;
-  // access 키 받으면 넣으면 됨
-  const access_key = process.env.ACCESS_KEY;
-  const analysisCode = process.env.ANALYSIS_CODE;
   
   let requestJson = {
       'access_key': access_key,
@@ -23,8 +27,7 @@ async function getAnswer(req, res) {
           'analysis_code': analysisCode
       }
   };
-  
-  let request = require('request');
+
   let options = {
       url: openApiURL,
       body: JSON.stringify(requestJson),
