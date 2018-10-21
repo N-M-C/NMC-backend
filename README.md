@@ -25,6 +25,7 @@ question을 query string으로 받아 추후 작업을 처리한다.
 - REQUEST: http://localhost:3000/hovi/answer?question=dd
 - RESPONSE: success: your question is dd
 
+- REQUEST: 
 http://localhost:3000/hovi/answerByObject?question=dd
 - RESPONSE: {
     category: 'test category',
