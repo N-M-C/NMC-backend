@@ -1,5 +1,4 @@
-import constant from '../../const/constant';
-
+const constant = require('../../const/constant');
 const request = require('request');
 
 // --- referenced from ETRI --

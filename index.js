@@ -8,7 +8,6 @@ server.set('port', port);
 
 // 실행된 서버 객체
 let serve;
-
 async function start() {
   logger.info(`${process.env.PORT}포트 에 연결을 시작합니다.`);
 
