@@ -2,16 +2,15 @@ const constant = require('../../const/constant');
 const request = require('request');
 
 // --- referenced from ETRI --
-// const openApiURL = process.env.OPEN_API_URL;
-const openApiURL = constant.open_api_info.open_api_url;
+const openApiURL = process.env.OPEN_API_URL;
 
-// const access_key = process.env.ACCESS_KEY;
-const access_key = constant.open_api_info.access_key;
+// access 키 받으면 넣으면 됨
+const access_key = process.env.ACCESS_KEY;
 const analysisCode = constant.analysis_code.code1;
 
 async function getAnswer(req, res) {
   const { question } = req.query || {};
-  var { questionAnalyzed } = {};
+  const { questionAnalyzed } = {};
   
   // 일단 dummy 데이터
   const answer = {
@@ -35,15 +34,16 @@ async function getAnswer(req, res) {
   };
   
   request.post(options, function (error, response, body) {
-      console.log('responseCode = ' + response.statusCode);
-      console.log('responseBody = ' + body);
-  });
+    const { return_object: {sentence} } = JSON.parse(body);
+    console.log(sentence);
+ });
 
   // category 추출 (특정 단어 포함 시)
 
   // category 에 따른 문장 분석, 
 
   try {
+
     //res.status(200).send(`success: your question is ${question}`);
     res.status(200).json(answer);
   } catch (err) {
