@@ -1,5 +1,5 @@
 const constant = require('../../const/constant');
-const request = require('request');
+const request = require('request-promise');
 
 // --- referenced from ETRI --
 const openApiURL = process.env.OPEN_API_URL;
@@ -32,23 +32,34 @@ async function getAnswer(req, res) {
       body: JSON.stringify(requestJson),
       headers: {'Content-Type':'application/json; charset=UTF-8'}
   };
-  
-  request.post(options, function (error, response, body) {
-    const { return_object: {sentence} } = JSON.parse(body);
-    console.log(sentence);
- });
 
-  // category 추출 (특정 단어 포함 시)
-
-  // category 에 따른 문장 분석, 
+ 
 
   try {
+     const data = await getData(options);
+     const result = { data };
+    
+    // category 추출 (특정 단어 포함 시)
 
-    //res.status(200).send(`success: your question is ${question}`);
-    res.status(200).json(answer);
+    // category 에 따른 문장 분석, 
+  
+    res.status(200).json(result);
   } catch (err) {
+    console.log(err);
     res.status(500).send('fail');
   }
+}
+
+async function getData(options) {
+  // Return new promise
+  return new Promise(function(resolve, reject) {
+    // Do async job
+    request.post(options,  function (error, response, body) {
+      const { return_object: {sentence} } = JSON.parse(body);
+      const { morp } = sentence[0];
+      resolve(morp);
+   });
+  })
 }
 
 // 예시
