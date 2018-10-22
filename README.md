@@ -78,3 +78,13 @@ http://localhost:3000/hovi/answerByObject?question=dd
 - 일상
 
 - 기타
+
+## Analysis Code in ETRI
+
+요청할 분석 코드로서 요청할 수 있는 분석 요청은 아래와 같음
+형태소 분석 : “morp”,
+어휘의미 분석 (동음이의어 분석) : “wsd”
+어휘의미 분석 (다의어 분석) : “wsd_poly”
+개체명 인식 : “ner”
+의존 구문 분석 : “dparse”
+의미역 인식 : “srl”

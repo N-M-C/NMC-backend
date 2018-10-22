@@ -2,15 +2,16 @@ const constant = require('../../const/constant');
 const request = require('request');
 
 // --- referenced from ETRI --
-const openApiURL = process.env.OPEN_API_URL;
+// const openApiURL = process.env.OPEN_API_URL;
+const openApiURL = constant.open_api_info.open_api_url;
 
-// access 키 받으면 넣으면 됨
-const access_key = process.env.ACCESS_KEY;
-const analysisCode = process.env.ANALYSIS_CODE;
+// const access_key = process.env.ACCESS_KEY;
+const access_key = constant.open_api_info.access_key;
+const analysisCode = constant.analysis_code.code1;
 
 async function getAnswer(req, res) {
   const { question } = req.query || {};
-  const { questionAnalyzed } = {};
+  var { questionAnalyzed } = {};
   
   // 일단 dummy 데이터
   const answer = {
