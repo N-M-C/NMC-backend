@@ -36,12 +36,37 @@ async function getAnswer(req, res) {
  
 
   try {
-     const data = await getData(options);
-     const result = { data };
-    
-    // category 추출 (특정 단어 포함 시)
+      // category 추출 (특정 단어 포함 시)
+      // category 에 따른 문장 분석,
 
-    // category 에 따른 문장 분석, 
+      const data = await getData(options);
+      const result = { data };
+      
+      //console.log(result.data);
+
+      // --- Category 분류하기 --- 언제 다하냐...?
+      for (var mor in result.data){
+
+        if(result.data[mor].type=='NP'){
+          if(result.data[mor].lemma=='어디'){
+            console.log('CATEGORY: 위치');
+          }else if(result.data[mor].lemma=='언제'){
+            console.log('CATEGORY: 시간');
+          }
+        }
+        if(result.data[mor].type=='NNG'){
+          if(result.data[mor].lemma=='고장'){
+            console.log('CATEGORY: 시설');
+          }else if(result.data[mor].lemma=='소요'){
+            console.log('CATEGORY: 시간');
+          }else if(result.data[mor].lemma=='시간'){
+            console.log('CATEGORY: 시간');
+          }
+        }
+      }
+      
+
+      
   
     res.status(200).json(result);
   } catch (err) {
