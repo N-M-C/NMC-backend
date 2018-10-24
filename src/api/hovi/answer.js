@@ -65,23 +65,23 @@ async function getAnswer(req, res) {
           // NP (대명사)가 있으면 검사
           if (result.data[mor].type == 'NP') {
             if (result.data[mor].lemma == '어디') {
-              resolve(2);
+              resolve('location');
               break;
             } else if (result.data[mor].lemma == '언제') {
-              resolve(3);
+              resolve('time');
               break;
             }
           }
 
           if (result.data[mor].type == 'NNG') {
             if (result.data[mor].lemma == '고장') {
-              resolve(1);
+              resolve('facility');
               break;
             } else if (result.data[mor].lemma == '소요') {
-              resolve(3);
+              resolve('time');
               break;
             } else if (result.data[mor].lemma == '시간') {
-              resolve(3);
+              resolve('time');
               break;
             }
           }
@@ -94,13 +94,13 @@ async function getAnswer(req, res) {
     classifyCategory().then(function (morpCategory) {
       console.log('category:', morpCategory);
       switch (morpCategory) {
-        case 1:
+        case 'facility':
 
           break;
         
         // X-Ray, CT, MRI 등을 음성인식이 어떻게 인식하는지 봐야할 듯.
         // 위치같은 경우는 지도도 같이 띄워주면 좋을듯
-        case 2:
+        case 'location':
           if(purifiedQuestion.indexOf('편의시설')!=-1){
             console.log('본관인 경우 – 지하1층에 아티제, 우체국, 선물의 집, 신한은행, 안경점, 의료용품점, 이/미용실, 편의점, 식당, 등이 있습니다.\n암병원인 경우 – 지하1층에 선물의 집, 신한은행, 커피전문점, 편의점, 식당 등이 있습니다.');
           }else if(purifiedQuestion.indexOf('원무')!=-1){
@@ -122,26 +122,26 @@ async function getAnswer(req, res) {
           }
           break;
 
-        case 3:
+        case 'time':
           // ~가 언제인가요?
           // ~하는데 소요시간이 얼마나 되나요?
           // ~하는데 얼마나 걸리죠?
           
           break;
 
-        case 4:
+        case 'fare':
 
           break;
 
-        case 5:
+        case 'symptom':
 
           break;
 
-        case 6:
+        case 'communication':
 
           break;
 
-        case 7:
+        case 'etc':
 
           break;
 
