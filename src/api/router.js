@@ -8,4 +8,8 @@ const router = express.Router();
 
 router.use('/hovi', hovi);
 
+router.get('/', function(req,res){
+    res.send('test code');
+});
+
 module.exports = router;
