@@ -41,28 +41,60 @@ async function getAnswer(req, res) {
 
       const data = await getData(options);
       const result = { data };
-      
+
       //console.log(result.data);
 
-      // --- Category 분류하기 --- 언제 다하냐...?
+      // 1. 시설 / 2. 위치 / 3. 시간 / 4. 요금 / 5. 증상 / 6. 일상대화 / 7. 그 외
+
+      // --- Category 분류하기 --- 
+      var category=0;
       for (var mor in result.data){
 
         if(result.data[mor].type=='NP'){
           if(result.data[mor].lemma=='어디'){
             console.log('CATEGORY: 위치');
+            category = 2;
           }else if(result.data[mor].lemma=='언제'){
             console.log('CATEGORY: 시간');
+            category = 3;
           }
+          
         }
         if(result.data[mor].type=='NNG'){
           if(result.data[mor].lemma=='고장'){
             console.log('CATEGORY: 시설');
+            category = 1;
           }else if(result.data[mor].lemma=='소요'){
             console.log('CATEGORY: 시간');
+            category = 3;
           }else if(result.data[mor].lemma=='시간'){
             console.log('CATEGORY: 시간');
+            category = 3;
           }
         }
+      }
+      console.log('category:', category);
+
+      switch(category){
+        case 0:
+          console.log(0);
+          break;
+
+        case 1:
+          console.log(0);
+          break;
+          
+        case 2:
+          console.log('어디어디');
+          break;
+
+        case 3:
+          console.log(0);
+          break;
+
+        case 4:
+          console.log(0);
+          break;
       }
       
 
