@@ -62,7 +62,7 @@ async function getAnswer(req, res) {
           const morLemma = result.data[mor].lemma;
           // 각각의 형태소 ( result.data[mor] )
           // NP(대명사)가 있으면 검사
-          if (morType == 'NP' && morLemma == '어디') {
+          if (morType == 'NP' && morLemma == '어디') {  
             resolve('location');
             break;
           }else if (morType == 'NP' && morLemma == '언제'){
@@ -122,18 +122,16 @@ async function getAnswer(req, res) {
             answer.response = '본관인 경우 – 지하1층에 아티제, 우체국, 선물의 집, 신한은행, 안경점, 의료용품점, 이/미용실, 편의점, 식당, 등이 있습니다.\n암병원인 경우 – 지하1층에 선물의 집, 신한은행, 커피전문점, 편의점, 식당 등이 있습니다.';
           }else if(purifiedQuestion.indexOf('원무')!=-1){
             answer.response = '환자분들의 편의를 위하여 원무창구를 병원업계최초로 운영하고 있습니다.\n병동 내 1:1 전담 직원 상주로 입/퇴원수속, 중간 진료비 수납, 진료비 상담, 제증명 발급, 퇴원 후 외래 예약, 기타 제안 및 문의사항 가능합니다.\n위치는 각 병동 원무 창구에 있고 이용시간은 평일 08:30~17:00입니다.\n이외의 시간에는 1층 원무창구를 이용해주십시오.';
-          }else if(purifiedQuestion.indexOf('엑스레이실')!=-1){
-            answer.response = '엑스레이실은 어디 있나요?';
-          }else if(purifiedQuestion.indexOf('CT검사실')!=-1){
+          }else if(purifiedQuestion.indexOf('엑스레이')!=-1){
+            answer.response = '본관 1층 응급실 맞은편에 있습니다.';
+          }else if(purifiedQuestion.indexOf('CT')!=-1){
             answer.response = 'CT 검사실은 본관 1층 응급실 맞은편에 있습니다.';
-          }else if (purifiedQuestion.indexOf('MRI검사실')!=-1){
+          }else if (purifiedQuestion.indexOf('MRI')!=-1){
             answer.response = 'MRI 검사실은 본관 1층 응급실 맞은편에 있습니다.';
           }else if (purifiedQuestion.indexOf('휠체어')!=-1){
-            answer.response = '휠체어는 간호사실 옆에 배치되어 있습니다.';
+            answer.response = '휠체어는 간호사실 옆에 배치되어 있습니다.\n사용하시고 간호사실 옆에 접어서 보관하시면 됩니다.';
           }else if (purifiedQuestion.indexOf('정수기')!=-1){
             answer.response = '정수기는 각 병동 휴게실에 배치되어 있습니다.';
-          }else if (purifiedQuestion.indexOf('MRI검사실')!=-1){
-            answer.response = '본관 1층 응급실 맞은편에 있습니다.';
           }else if (purifiedQuestion.indexOf('병원')!=-1){
             answer.response = '여기는 서울특별시 강남구 일원로 81 (06351) 삼성서울병원입니다.';
           }else{
@@ -149,7 +147,10 @@ async function getAnswer(req, res) {
             answer.response = '일반병동 – 평일 18:00~20:00 주말/공휴일 10:00~12:00, 18:00~20:00\n정신건강의학과 안정병동 – 화, 목, 주말, 공휴일 : 15:00~18:00\n본관/암병원 중환자실 : 매일 오전10:30~11:00 오후 19:30~20:00\n신생아중환자실 : 24시간 자율면회\n가입원실(응급실) : 매일 12:00~13:00, 18:00~19:00';
           }else if (purifiedQuestion.indexOf('퇴원')!=-1){
             answer.response = "퇴원 관련 문의는 담당 간호사에게 문의해주세요.\n초기메뉴의 '간호사에게 부탁하기' 기능을 사용하실 수 있습니다!";
-          }else{
+          }else if (purifiedQuestion.indexOf('회진')!=-1){
+            answer.response = "담당의사는  정해진 시간 내 하루에 1회 정도 병실을 방문하여, 회진 시간에는 현재 상태, 진단, 치료 계획 및 치료결과, 추후 계획 등에 대하여 설명 들으실 수 있습니다.\n치료와 관련하여 궁금하신 내용은 회진 시간에 의료진에게 문의하여 주십시오.\n회진 시간은 각 병동 게시판에 안내하고 있습니다.";
+          }
+          else{
             answer.response = "어떤 걸 말씀하시는지 모르겠어요.. 다시 한 번 말씀해주세요!";
           }
           
