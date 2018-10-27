@@ -19,7 +19,7 @@ async function getAnswer(req, res) {
   const purifiedQuestion = question.replace(/ /gi, '');
 
   // 일단 dummy 데이터
-  const answer = {
+  let answer = {
     question: question,
     category: constant.facility,
     response: constant.hospitalInfo.address,
@@ -122,7 +122,7 @@ async function getAnswer(req, res) {
             answer.response = '본관인 경우 – 지하1층에 아티제, 우체국, 선물의 집, 신한은행, 안경점, 의료용품점, 이/미용실, 편의점, 식당, 등이 있습니다.\n암병원인 경우 – 지하1층에 선물의 집, 신한은행, 커피전문점, 편의점, 식당 등이 있습니다.';
           }else if(purifiedQuestion.indexOf('원무')!=-1){
             answer.response = '환자분들의 편의를 위하여 원무창구를 병원업계최초로 운영하고 있습니다.\n병동 내 1:1 전담 직원 상주로 입/퇴원수속, 중간 진료비 수납, 진료비 상담, 제증명 발급, 퇴원 후 외래 예약, 기타 제안 및 문의사항 가능합니다.\n위치는 각 병동 원무 창구에 있고 이용시간은 평일 08:30~17:00입니다.\n이외의 시간에는 1층 원무창구를 이용해주십시오.';
-          }else if(purifiedQuestion.indexOf('엑스레이검사실')!=-1){
+          }else if(purifiedQuestion.indexOf('엑스레이실')!=-1){
             answer.response = '엑스레이실은 어디 있나요?';
           }else if(purifiedQuestion.indexOf('CT검사실')!=-1){
             answer.response = 'CT 검사실은 본관 1층 응급실 맞은편에 있습니다.';
@@ -183,9 +183,10 @@ async function getAnswer(req, res) {
 
           break;
       }
-    });
+      
+    }).then(() =>  res.status(200).json(answer));
 
-    res.status(200).json(answer);
+   
 
   } catch (err) {
     console.log(err);
