@@ -58,55 +58,52 @@ async function getAnswer(req, res) {
     function classifyCategory() {
       return new Promise(function (resolve, reject) {
         for (var mor in result.data) {
+          const morType = result.data[mor].type;
+          const morLemma = result.data[mor].lemma;
           // 각각의 형태소 ( result.data[mor] )
-          // NP (대명사)가 있으면 검사
-          if (result.data[mor].type == 'NP') {
-            if (result.data[mor].lemma == '어디') {
-              resolve('location');
-              break;
-            } else if (result.data[mor].lemma == '언제') {
-              resolve('time');
-              break;
-            }
+          // NP(대명사)가 있으면 검사
+          if (morType == 'NP' && morLemma == '어디') {
+            resolve('location');
+            break;
+          }else if (morType == 'NP' && morLemma == '언제'){
+            resolve('time');
+            break;
           }
-          
-          if (result.data[mor].type == 'NNG') {
-            if (result.data[mor].lemma == '고장') {
-              resolve('facility');
-              break;
-            } else if (result.data[mor].lemma == '소요') {
-              resolve('time');
-              break;
-            } else if (result.data[mor].lemma == '시간') {
-              resolve('time');
-              break;
-            } else if (result.data[mor].lemma == '요금') {
-              resolve('fare');
-              break;
-            }
+          // NNG(일반명사)가 있으면 검사
+          else if (morType == 'NNG' && morLemma == '고장'){
+            resolve('facility');
+            break;
+          }else if (morType == 'NNG' && morLemma == '소요'){
+            resolve('time');
+            break;
+          }else if (morType == 'NNG' && morLemma == '시간'){
+            resolve('time');
+            break;
+          }else if (morType == 'NNG' && morLemma == '요금'){
+            resolve('fare');
+            break;
           }
-          // ex) 얼마나 걸리나요?
-          if (result.data[mor].type == 'VV'){
-            if (result.data[mor].lemma == '걸리'){
-              resolve('time');
-              break;
-            }
+          // VV(동사)
+          else if (morType == 'VV' && morLemma == '걸리'){
+            resolve('fare');
+            break;
           }
-
-          if (result.data[mor].type == 'VA'){
-            if (result.data[mor].lemma == '아프' || result.data[mor].lemma == '아픈'){
-              resolve('symptom');
-              break;
-            }
+          // VA(형용사)
+          else if (morType == 'VA' && morLemma == '아프'){
+            resolve('symptom');
+            break;
+          }else if (morType == 'VA' && morLemma == '아픈'){
+            resolve('symptom');
+            break;
           }
-
-          // ex) 주차비가 어떻게 되나요?
-          if (result.data[mor].type == 'XSN'){
-            if (result.data[mor].lemma == '비'){
-              resolve('fare');
-              break;
-            }
-            
+          // XSN(명사파생접미사)
+          else if (morType == 'XSN' && morLemma == '비'){
+            resolve('fare');
+            break;
+          }
+          else{
+            resolve('etc');
+            break;
           }
         }
       });
@@ -167,7 +164,7 @@ async function getAnswer(req, res) {
           break;
 
         case 'symptom':
-          console.log("증상 관련은 담당 간호사분께 말씀해주세요. \n 초기 화면의 '간호사에게 부탁하기' 기능을 사용해주세요. ");
+          console.log("증상 관련은 담당 간호사분께 말씀해주세요. \n초기 화면의 '간호사에게 부탁하기' 기능을 사용해주세요. ");
           
           break;
 
