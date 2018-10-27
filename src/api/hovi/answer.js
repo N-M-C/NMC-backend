@@ -180,7 +180,7 @@ async function getAnswer(req, res) {
 
         case 'video':
           if(purifiedQuestion.indexOf('영상')!=-1){
-            answer.response ='https://www.youtube.com/watch?v=tSKwOiyb5Y0';
+            answer.response ='https://www.youtube.com/watch?v=tB9_Sue4d9Y';
           }
           break;
 
