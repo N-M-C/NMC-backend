@@ -189,6 +189,12 @@ async function getAnswer(req, res) {
             answer.response = '제 이름은 하비(HOVI)입니다! 여러분들의 편안한 병원생활을 위해 만들어졌어요~';
           }else if(purifiedQuestion.indexOf('너')!=-1 && purifiedQuestion.indexOf('누구')!=-1){
             answer.response = '제 이름은 하비(HOVI)입니다! 여러분들의 편안한 병원생활을 위해 만들어졌어요~';
+          }else if(purifiedQuestion.indexOf('바보')){
+            answer.response = '나쁜말은 안되요!';
+          }else if(purifiedQuestion.indexOf('씨발')){
+            answer.response = '나쁜말은 안되요!';
+          }else if(purifiedQuestion.indexOf('개새끼')){
+            answer.response = '나쁜말은 안되요!';
           }
           else{
             answer.response = '잘 못들었어요 ㅠㅠ 다시한번 말씀해주세요';
