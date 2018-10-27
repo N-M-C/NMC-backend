@@ -41,8 +41,6 @@ async function getAnswer(req, res) {
     }
   };
 
-
-
   try {
     // category 추출 (특정 단어 포함 시)
     // category 에 따른 문장 분석,
@@ -54,14 +52,13 @@ async function getAnswer(req, res) {
 
     //console.log(result.data);
 
-    // 1. 시설 / 2. 위치 / 3. 시간 / 4. 요금 / 5. 증상 / 6. 일상대화 / 7. 그 외
+    // 1. 시설 / 2. 위치 / 3. 시간 / 4. 요금 / 5. 증상 / 6. 지식 / 7. 그 외 (+일상대화)
 
     // --- Category 분류하기 --- 
     function classifyCategory() {
       return new Promise(function (resolve, reject) {
         for (var mor in result.data) {
           // 각각의 형태소 ( result.data[mor] )
-          
           // NP (대명사)가 있으면 검사
           if (result.data[mor].type == 'NP') {
             if (result.data[mor].lemma == '어디') {
@@ -72,7 +69,7 @@ async function getAnswer(req, res) {
               break;
             }
           }
-
+          
           if (result.data[mor].type == 'NNG') {
             if (result.data[mor].lemma == '고장') {
               resolve('facility');
@@ -83,7 +80,33 @@ async function getAnswer(req, res) {
             } else if (result.data[mor].lemma == '시간') {
               resolve('time');
               break;
+            } else if (result.data[mor].lemma == '요금') {
+              resolve('fare');
+              break;
             }
+          }
+          // ex) 얼마나 걸리나요?
+          if (result.data[mor].type == 'VV'){
+            if (result.data[mor].lemma == '걸리'){
+              resolve('time');
+              break;
+            }
+          }
+
+          if (result.data[mor].type == 'VA'){
+            if (result.data[mor].lemma == '아프' || result.data[mor].lemma == '아픈'){
+              resolve('symptom');
+              break;
+            }
+          }
+
+          // ex) 주차비가 어떻게 되나요?
+          if (result.data[mor].type == 'XSN'){
+            if (result.data[mor].lemma == '비'){
+              resolve('fare');
+              break;
+            }
+            
           }
         }
       });
@@ -95,6 +118,7 @@ async function getAnswer(req, res) {
       console.log('category:', morpCategory);
       switch (morpCategory) {
         case 'facility':
+            console.log('시설관련 질문');
 
           break;
         
@@ -118,7 +142,7 @@ async function getAnswer(req, res) {
           }else if (purifiedQuestion.indexOf('MRI검사실')!=-1){
             console.log('본관 1층 응급실 맞은편에 있습니다.');
           }else{
-            console.log('어디를 말씀하는지 모르겠어요.. 다시한번 말씀해주세요!');
+            console.log('어디를 말씀하는지 모르겠어요.. 다시 한 번 말씀해주세요!');
           }
           break;
 
@@ -126,18 +150,29 @@ async function getAnswer(req, res) {
           // ~가 언제인가요?
           // ~하는데 소요시간이 얼마나 되나요?
           // ~하는데 얼마나 걸리죠?
+          if(purifiedQuestion.indexOf('면회')!=-1){
+            console.log('일반병동 – 평일 18:00~20:00 주말/공휴일 10:00~12:00, 18:00~20:00\n정신건강의학과 안정병동 – 화, 목, 주말, 공휴일 : 15:00~18:00\n본관/암병원 중환자실 : 매일 오전10:30~11:00 오후 19:30~20:00\n신생아중환자실 : 24시간 자율면회\n가입원실(응급실) : 매일 12:00~13:00, 18:00~19:00');
+          }else if (purifiedQuestion.indexOf('퇴원')!=-1){
+            console.log("퇴원 관련 문의는 담당 간호사에게 문의해주세요.\n초기메뉴의 '간호사에게 부탁하기' 기능을 사용하실 수 있습니다!");
+          }else{
+            console.log("어떤 걸 말씀하시는지 모르겠어요.. 다시 한 번 말씀해주세요!");
+          }
           
           break;
 
         case 'fare':
-
+          if(purifiedQuestion.indexOf('주차')!=-1){
+            console.log('주차는 24시간 이내 시 (외래, 응급실, 입원/퇴원/수술) 은 1대 1회 무료이고 수납/방문예약은 2시간 무료입니다.\n나머지 시간은 주차요금이 부과됩니다.');
+          }
           break;
 
         case 'symptom':
-
+          console.log("증상 관련은 담당 간호사분께 말씀해주세요. \n 초기 화면의 '간호사에게 부탁하기' 기능을 사용해주세요. ");
+          
           break;
 
-        case 'communication':
+        case 'knowledge':
+          // 지식관련 질문...
 
           break;
 
