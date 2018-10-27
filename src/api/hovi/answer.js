@@ -101,6 +101,10 @@ async function getAnswer(req, res) {
             resolve('fare');
             break;
           }
+          else if (morType == 'NNG' && morLemma == '영상'){
+            resolve('video');
+            break;
+          }
         }
         resolve('etc');
       });
@@ -169,13 +173,24 @@ async function getAnswer(req, res) {
 
         case 'knowledge':
           // 지식관련 질문...
+          answer.response = "지식 관련 질문";
 
+          break;
+
+
+        case 'video':
+          if(purifiedQuestion.indexOf('입원')!=-1){
+            answer.response ='https://www.youtube.com/watch?v=tSKwOiyb5Y0';
+          }
           break;
 
         case 'etc':
           if(purifiedQuestion.indexOf('너')!=-1 && purifiedQuestion.indexOf('이름')!=-1){
-            answer.response = '제 이름은 하비(HOVI)입니다! 여러분들의 편안한 병원생활을 위해 태어났어요~';
-          }else{
+            answer.response = '제 이름은 하비(HOVI)입니다! 여러분들의 편안한 병원생활을 위해 만들어졌어요~';
+          }else if(purifiedQuestion.indexOf('너')!=-1 && purifiedQuestion.indexOf('누구')!=-1){
+            answer.response = '제 이름은 하비(HOVI)입니다! 여러분들의 편안한 병원생활을 위해 만들어졌어요~';
+          }
+          else{
             answer.response = '잘 못들었어요 ㅠㅠ 다시한번 말씀해주세요';
           }
           break;
