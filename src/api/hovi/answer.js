@@ -191,9 +191,13 @@ async function getAnswer(req, res) {
             answer.response = '제 이름은 하비(HOVI)입니다! 여러분들의 편안한 병원생활을 위해 만들어졌어요~';
           }else if(purifiedQuestion.indexOf('바보')){
             answer.response = '나쁜말은 안되요!';
+          }else if(purifiedQuestion.indexOf('멍청이')){
+            answer.response = '나쁜말은 안되요!';
           }else if(purifiedQuestion.indexOf('씨발')){
             answer.response = '나쁜말은 안되요!';
           }else if(purifiedQuestion.indexOf('개새끼')){
+            answer.response = '나쁜말은 안되요!';
+          }else if(purifiedQuestion.indexOf('병신')){
             answer.response = '나쁜말은 안되요!';
           }
           else{
